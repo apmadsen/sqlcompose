@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sqlcompose"
-version = "0.0.0"
-description = ""
+version = "0.0.1"
+description = "Composition of linked SQL files"
 readme = "README.md"
 authors = ["Anders Madsen <anders.madsen@alphavue.com>"]
 license = "MIT"
