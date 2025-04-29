@@ -1,0 +1,36 @@
+{
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.globalModuleInstallation": true,
+    "files.watcherExclude": {
+        ".git/**": true
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test*.py"
+    ],
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportImportCycles": "none",
+        "reportPrivateUsage": "warning",
+        "reportUnusedVariable": "warning",
+        "reportUnusedFunction": "warning",
+        "reportUnusedImport": "warning",
+        "reportMissingTypeStubs": "none",
+        "reportUnknownParameterType": "error",
+        "reportUnknownArgumentType": "error",
+        "reportUnknownVariableType": "error",
+        "reportUnknownMemberType": "error",
+        "reportUnnecessaryTypeIgnoreComment": "warning",
+    },
+    "python.analysis.include": [
+        "${workspaceFolder:}/src"
+    ]
+}

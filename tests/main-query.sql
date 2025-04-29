@@ -1,0 +1,1 @@
+select * from $INCLUDE(includes\included-query2.sql)
