@@ -3,7 +3,6 @@ from unittest import TestCase, main
 from sqlcompose import loads, load
 from os import path
 
-
 class Test(TestCase):
     def test_nonexisting(self):
         self.assertRaises(FileNotFoundError, load, "nonexisting.sql")

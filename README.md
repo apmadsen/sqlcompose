@@ -3,9 +3,12 @@ sqlcompose allows you to compose sql files from multiple files by introducing `I
 
 ## Examples
 __Execute the script directly:__
-```
+```console
 sqlcompose query.sql
-sqlcompose "select * from $INCLUDE(included-query1.sql)"
+```
+```console
+sqlcompose 'select * from $INCLUDE(included-query1.sql)' # on linux
+sqlcompose "select * from $INCLUDE(included-query1.sql)" # on windows
 ```
 
 __Import it in another script:__
