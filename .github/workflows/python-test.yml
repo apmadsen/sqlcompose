@@ -23,8 +23,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install poetry
-      run: pipx install poetry==1.6.1
+    - name: Install Poetry and pytest
+      run: pipx install poetry==1.6.1 pytest
 
     - name: Create Poetry lock file if missing
       run: poetry lock --no-update
