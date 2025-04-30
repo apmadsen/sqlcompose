@@ -1,3 +1,7 @@
+[![Python package](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test.yml/badge.svg)](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test.yml)
+![Stable Version](https://img.shields.io/pypi/v/sqlcompose?label=stable)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sqlcompose)
+
 # sqlcompose: Composition of linked SQL files
 sqlcompose allows you to compose sql files from multiple files by introducing `INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
 
@@ -6,7 +10,7 @@ __Execute the script directly:__
 ```console
 sqlcompose query.sql
 ```
-```console
+```bash
 sqlcompose 'select * from $INCLUDE(included-query1.sql)' # on linux
 sqlcompose "select * from $INCLUDE(included-query1.sql)" # on windows
 ```
