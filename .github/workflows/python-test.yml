@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   windows_osx:
@@ -12,18 +11,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10', '3.11', '3.12']
-        os: ['macos-latest', 'windows-latest']
-
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        os: ["macos-latest", "windows-latest"]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-      - name: Python version
-        run: python --version
+          cache: "pip"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
@@ -37,54 +33,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
-
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
     - uses: actions/checkout@v4
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pip'
-
+        cache: "pip"
     - name: Install dependencies
       run: |
-        python -m pip install tox
+        python -m pip install --upgrade pip setuptools wheel
+        python -m pip install pytest
         python -m pip install -e .
-    - name: Test with tox
-      run: tox -p all
-
-    # - name: Cache Poetry install
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ~/.local
-    #     key: poetry-1.6.1
-
-    # - name: Install Poetry
-    #   uses: snok/install-poetry@v1
-    #   with:
-    #     version: 1.6.1
-    #     virtualenvs-create: true
-    #     virtualenvs-in-project: true
-
-    # - name: Create Poetry lock file
-    #   run: poetry lock --no-update
-
-    # - name: Cache dependencies
-    #   id: cache-deps
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: .venv
-    #     key: pydeps-${{ hashFiles('**/poetry.lock') }}-${{ matrix.python-version }}-${{ matrix.os }}
-
-    # - name: Install dependencies
-    #   run: poetry install --no-interaction --no-root
-    #   if: steps.cache-deps.outputs.cache-hit != 'true'
-
-    # - name: Install package itself
-    #   run: poetry install --with dev --no-interaction
-
-    # - name: Test with pytest
-    #   run: poetry run pytest
+    - name: Test with pytest
+      run: python -m pytest
 
