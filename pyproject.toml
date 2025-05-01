@@ -2,13 +2,28 @@
 name = "sqlcompose"
 version = "0.0.1"
 description = "Composition of linked SQL files"
+keywords = ["sql", "composition", "windows", "linux"]
 readme = "README.md"
 authors = ["Anders Madsen <anders.madsen@alphavue.com>"]
 license = "MIT"
 repository = "https://github.com/apmadsen/sqlcompose"
 classifiers = [
-    "Operating System :: OS Independent"
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python",
+    "License :: MIT",
+    "Typing :: Typed"
 ]
+requires-python = '>=3.10'
 packages = [
     { include = "sqlcompose", from = "src" }
 ]
@@ -17,16 +32,7 @@ packages = [
 "sqlcompose" = "sqlcompose.main:main"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<=3.13"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
-pylint = "^3.0.2"
-
-# [tool.pytest.ini_options]
-# pythonpath = [
-#   "."
-# ]
+python = ">=3.10,<3.14"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
