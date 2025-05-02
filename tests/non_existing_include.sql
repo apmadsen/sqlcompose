@@ -1,0 +1,1 @@
+select * from $INCLUDE(some_file_that_does_not_exist.sql)

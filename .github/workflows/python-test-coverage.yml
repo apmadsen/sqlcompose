@@ -23,5 +23,4 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         python -m pip install -e ".[test]"
     - name: Check coverage with pytest-cov
-      run: python -m pytest --cov-report term --cov=sqlcompose tests/
-
+      run: python -m pytest --cov-branch --cov-report term-missing --cov=sqlcompose tests/

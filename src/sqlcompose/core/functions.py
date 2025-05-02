@@ -1,9 +1,10 @@
 from os import path
-from typing import Sequence, MutableSequence, MutableMapping, cast
+from typing import Sequence
 from os import path
 from re import compile, sub, escape, IGNORECASE
 from textwrap import indent
 
+from sqlcompose.core.circular_dependency_error import CircularDependencyError
 from sqlcompose.core.include import Include
 from sqlcompose.core.compat import fix_path, get_relative_path
 
@@ -19,7 +20,7 @@ def loads(sql: str) -> str:
     Returns:
         str: The composed query
     """
-    return cast(str, compose(sql, "SQL", path.curdir, path.curdir))
+    return compose(sql, "SQL", path.curdir, path.curdir)
 
 
 def load(filename: str) -> str:
@@ -40,7 +41,7 @@ def load(filename: str) -> str:
 
 
     with open(filename, "r", encoding="utf-8") as file:
-        return cast(str, compose(file.read(), filename, filename, path.dirname(filename)))
+        return compose(file.read(), filename, filename, path.dirname(filename))
 
 
 def compose(
@@ -49,51 +50,54 @@ def compose(
     file_path: str,
     root: str,
     level: int = 1,
-    included: MutableSequence[str] | None = None,
-    included1: MutableMapping[str, tuple[str, int]] | None = None
-) -> str | None:
+    stack: list[str] | None = None
+) -> str:
 
     file_path = fix_path(file_path)
-    included = included or []
-    included1 = included1 or {}
-    includes: list[Include] = []
-    parent = included[len(included)-2] if len(included) > 1 else None
-
-    if name in included and included1[name][1] == level:
-        #duplicate include at the same level - return none, to use the previously composed SQL
-        return None
-    elif name in included:
-        raise Exception(f"Circular dependency detected: File \"{get_relative_path(file_path, root)}\" has already been already included")
-    else:
-        included.append(name)
-        included1[name] = (file_path, level)
-
+    stack = stack or []
+    parent = stack[-1] if stack else None
+    name = get_relative_path(name, root)
     index = 1
+    included: list[str] = []
+    includes: list[Include] = []
+    stack.append(name)
+
+    if len(stack) > 1 and name in (stack[1:-1]):
+        raise CircularDependencyError
 
     for match in REGEX_INCLUDE.finditer(sql):
         file_path_inner = fix_path(path.join(path.dirname(file_path), match.group(1)))
-        try:
-            with open(file_path_inner, "r", encoding="utf-8") as file:
-                composed = compose(file.read(), match.group(1), file_path_inner, root, level=level+1)
-        except FileNotFoundError:
-            if not parent is None:
-                raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" which was referred to in \"{get_relative_path(parent, root)}\", was not found...")
-            else:
-                raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" was not found...")
-
-        if composed is not None:
-            includes.append(
-                Include(
-                    composed,
-                    f"Q_{level}_{index}",
-                    match.group(0),
-                    match.group(1)
+        if file_path_inner not in included:
+            included.append(file_path_inner)
+            try:
+                with open(file_path_inner, "r", encoding="utf-8") as file:
+                    composed = compose(
+                        file.read(),
+                        match.group(1),
+                        file_path_inner,
+                        root,
+                        level + 1,
+                        stack
+                    )
+                includes.append(
+                    Include(
+                        composed,
+                        f"Q_{level}_{index}",
+                        match.group(0),
+                        match.group(1)
+                    )
                 )
-            )
-            index = index + 1
+                index = index + 1
+            except FileNotFoundError:
+                if parent is not None:
+                    raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" which was referred to in \"{get_relative_path(parent, root)}\", was not found...")
+                else:
+                    raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" was not found...")
 
     for include in includes:
         sql = sub(escape(include.match), include.name, sql)
+
+    stack.pop()
 
     return wrap_cte_sql(includes, sql, level, name)
 

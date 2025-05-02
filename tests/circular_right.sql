@@ -1,0 +1,1 @@
+select * from $INCLUDE(circular_left.sql)

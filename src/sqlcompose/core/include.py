@@ -20,5 +20,5 @@ class Include():
         return self.__match
 
     @property
-    def source(self) -> str:
+    def source(self) -> str: # pragma: no cover
         return self.__source

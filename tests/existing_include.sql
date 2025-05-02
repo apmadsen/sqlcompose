@@ -1,0 +1,1 @@
+select * from $INCLUDE(non_existing_include.sql)
