@@ -11,14 +11,31 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": false
-        }, {
+        },
+        {
+            "name": "pytest coverage",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "console": "integratedTerminal",
+            "args": [
+                "--cov-branch",
+                "--cov-report",
+                "term-missing",
+                "--cov=src/",
+                "--cov-config=.coveragerc",
+                "./tests",
+            ]
+        },
+        {
             "name": "Python Debugger: Console w/o args",
             "type": "debugpy",
             "request": "launch",
             "module": "sqlcompose",
             "console": "integratedTerminal",
             "justMyCode": false
-        }, {
+        },
+        {
             "name": "Python Debugger: Console",
             "type": "debugpy",
             "request": "launch",

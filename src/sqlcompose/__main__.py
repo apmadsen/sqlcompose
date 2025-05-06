@@ -1,7 +1,7 @@
 from sys import argv, exit, stderr, stdout
 from sqlcompose.core.app import app
 
-def main():
+def main(): # pragma: no cover
     result, code = app(argv[1:])
 
     if code == 0:

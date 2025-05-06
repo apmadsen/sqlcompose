@@ -1,7 +1,13 @@
 {
     "python.envFile": "${workspaceFolder}/.env",
-    "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "-v",
+        "term-missing",
+        "--pdb",
+        "tests/"
+    ],
+    "python.testing.unittestEnabled": false,
     "python.globalModuleInstallation": true,
     "files.watcherExclude": {
         ".git/**": true
@@ -18,7 +24,7 @@
     "python.analysis.diagnosticMode": "workspace",
     "python.analysis.useLibraryCodeForTypes": true,
     "python.analysis.diagnosticSeverityOverrides": {
-        "reportImportCycles": "none",
+        "reportImportCycles": "warning",
         "reportPrivateUsage": "warning",
         "reportUnusedVariable": "warning",
         "reportUnusedFunction": "warning",
