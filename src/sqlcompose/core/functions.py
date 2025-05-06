@@ -77,7 +77,7 @@ def compose(
                         file_path_inner,
                         root,
                         level + 1,
-                        stack
+                        stack.copy()
                     )
                 includes.append(
                     Include(

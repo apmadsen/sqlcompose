@@ -1,8 +1,7 @@
 from sys import argv, exit, stderr, stdout
 from sqlcompose.core.app import app
 
-
-if __name__ == "__main__":
+def main():
     result, code = app(argv[1:])
 
     if code == 0:
@@ -11,3 +10,6 @@ if __name__ == "__main__":
         stderr.write(result)
 
     exit(code)
+
+if __name__ == "__main__":
+    main()

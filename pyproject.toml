@@ -17,7 +17,6 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -34,7 +33,7 @@ requires-python = ">=3.10"
 repository = "https://github.com/apmadsen/sqlcompose"
 
 [project.scripts]
-"sqlcompose" = "sqlcompose.main:main"
+"sqlcompose" = "sqlcompose.__main__:main"
 
 [project.optional-dependencies]
 test = [

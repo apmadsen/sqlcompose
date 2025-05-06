@@ -25,6 +25,7 @@ venv/
 *.egg
 .eggs/
 *mypy_cache
+.pytest_cache
 
 # Installer logs
 pip-log.txt
