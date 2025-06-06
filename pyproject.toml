@@ -41,9 +41,9 @@ test = [
     "pytest-cov>=6.1.0",
 ]
 
-[tool.setuptools.dynamic]
-version = { attr = 'sqlcompose.__init__.__version__' }
+[tool.setuptools-git-versioning]
+enabled = true
 
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = ["setuptools >= 77.0.3", "setuptools-git-versioning >= 2.1.0"]
 build-backend = "setuptools.build_meta"

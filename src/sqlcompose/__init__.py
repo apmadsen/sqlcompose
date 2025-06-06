@@ -6,5 +6,3 @@ __all__ = [
     'loads',
     'CircularDependencyError',
 ]
-__package_name__ = "sqlcompose"
-__version__ = "0.0.3"

@@ -1,9 +1,9 @@
 [![Test](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test.yml/badge.svg)](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test.yml)
 [![Coverage](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test-coverage.yml/badge.svg)](https://github.com/apmadsen/sqlcompose/actions/workflows/python-test-coverage.yml)
-![Stable Version](https://img.shields.io/pypi/v/sqlcompose?label=stable&sort=semver&color=blue)
+[![Stable Version](https://img.shields.io/pypi/v/sqlcompose?label=stable&sort=semver&color=blue)](https://github.com/apmadsen/sqlcompose/releases)
 ![Pre-release Version](https://img.shields.io/github/v/release/apmadsen/sqlcompose?label=pre-release&include_prereleases&sort=semver&color=blue)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sqlcompose)
-
+[![PyPI Downloads](https://static.pepy.tech/badge/sqlcompose/week)](https://pepy.tech/projects/sqlcompose)
 
 # sqlcompose: Composition of linked SQL files
 sqlcompose allows you to compose sql files from multiple files by introducing `INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
