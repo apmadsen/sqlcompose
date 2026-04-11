@@ -1,29 +1,31 @@
+# ruff: noqa
 # pyright: basic
-from unittest import TestCase, main
+from os import path
+from pytest import fixture, raises as assert_raises
 
 from sqlcompose.core.app import app
 
-class Test(TestCase):
-    # def test_nonexisting(self):
-    #     _result, code = app(["nonexisting.sql"])
-    #     self.assertEqual(code, 1)
 
-    def test_missing_args(self):
-        _result, code = app([])
-        self.assertEqual(code, 2)
+def test_missing_args():
+    _result, code = app([])
+    assert code == 2
 
-    def test_existing_file_by_path(self):
-        result, code = app(["tests/main-query.sql"])
-        self.assertGreater(len(result), 0)
-        self.assertEqual(code, 0)
+def test_existing_file_by_path():
+    result, code = app([path.join("tests", "main-query.sql")])
+    assert len(result) > 0
+    assert code == 0
 
-    def test_sql(self):
-        result, code = app(["SELECT * FROM $INCLUDE(tests/main-query.sql)"])
-        # print(result)
-        self.assertGreater(len(result), 0)
-        self.assertEqual(code, 0)
+def test_missing_file_by_path():
+    result, code = app([path.join("tests", "nonexisting.sql")])
+    assert len(result) > 0
+    assert code == 3
+
+    result, code = app([f"SELECT * FROM $INCLUDE({path.join('tests', 'nonexisting.sql')})"])
+    assert len(result) > 0
+    assert code == 3
 
 
-if __name__ == '__main__':
-    main()
-
+def test_sql():
+    result, code = app([f"SELECT * FROM $INCLUDE({path.join('tests', 'main-query.sql')})"])
+    assert len(result) > 0
+    assert code == 0

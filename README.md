@@ -14,8 +14,7 @@ __Execute the script directly:__
 sqlcompose query.sql
 ```
 ```bash
-sqlcompose 'select * from $INCLUDE(included-query1.sql)' # on linux
-sqlcompose "select * from $INCLUDE(included-query1.sql)" # on windows
+sqlcompose 'select * from $INCLUDE(included-query1.sql)'
 ```
 
 __Import it in another script:__

@@ -1,5 +1,7 @@
-from os import path
+from os import path, sep
+from re import compile
 
+RX_FILE = compile(r"^[\w,\s-]+\.[A-Za-z]{3}$")
 WINDOWS_PATH_SEP = "\\"
 UNIX_PATH_SEP = "/"
 
@@ -30,3 +32,13 @@ def get_relative_path(file_path: str, root: str) -> str:
         return file_path
     else:
         return path.relpath(file_path, path.commonprefix([root, file_path]))
+
+def is_file(text: str) -> bool:
+    if path.isfile(text):
+        return True
+    elif sep in text and is_file(path.basename(text)):
+        return True
+    elif RX_FILE.match(text):
+        return True
+
+    return False

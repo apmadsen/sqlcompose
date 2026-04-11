@@ -1,11 +1,11 @@
 from os import path
 from typing import Sequence
-from os import path
 from re import compile, sub, escape, IGNORECASE
 from textwrap import indent
 
 from sqlcompose.core.circular_dependency_error import CircularDependencyError
 from sqlcompose.core.include import Include
+from sqlcompose.core.file_not_found_err import FileNotFoundErr
 from sqlcompose.core.compat import fix_path, get_relative_path
 
 REGEX_INCLUDE = compile(r"\$INCLUDE\(([^\)]+)\)", IGNORECASE)
@@ -37,7 +37,7 @@ def load(filename: str) -> str:
     filename = fix_path(filename)
 
     if not path.isfile(filename):
-        raise FileNotFoundError(filename)
+        raise FileNotFoundErr(filename)
 
 
     with open(filename, "r", encoding="utf-8") as file:
@@ -88,11 +88,13 @@ def compose(
                     )
                 )
                 index = index + 1
-            except FileNotFoundError:
+            except (FileNotFoundErr, FileNotFoundError) as ex:
+                filename = get_relative_path(file_path_inner, root)
                 if parent is not None:
-                    raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" which was referred to in \"{get_relative_path(parent, root)}\", was not found...")
+                    raise FileNotFoundErr(filename, f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" which was referred to in \"{get_relative_path(parent, root)}\", was not found...") from ex
                 else:
-                    raise FileNotFoundError(f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" was not found...")
+                    raise FileNotFoundErr(filename, f"Include failed: File \"{get_relative_path(file_path_inner, root)}\" was not found...") from ex
+
 
     for include in includes:
         sql = sub(escape(include.match), include.name, sql)

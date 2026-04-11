@@ -3,7 +3,7 @@
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
         "-v",
-        "term-missing",
+        "-s",
         "--pdb",
         "tests/"
     ],
