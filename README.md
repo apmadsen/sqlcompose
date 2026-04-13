@@ -6,7 +6,12 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/sqlcompose/week)](https://pepy.tech/projects/sqlcompose)
 
 # sqlcompose: Composition of linked SQL files
-sqlcompose allows you to compose sql files from multiple files by introducing `INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
+sqlcompose lets you to compose sql files from multiple files by introducing `INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
+
+Using composition, you reduce both complexity and duplication of code thus adhering to the DRY principle.
+
+### SQL Dialect
+sqlcompose outputs SQL as standard ANSI SQL. Note though, that no validation is done either on the input or the output.
 
 ## Examples
 __Execute the script directly:__
@@ -16,6 +21,7 @@ sqlcompose query.sql
 ```bash
 sqlcompose 'select * from $INCLUDE(included-query1.sql)'
 ```
+> NOTE: Different consoles have different limitations, so you may have to switch from single to double quotes to allow for using the dollar sign.
 
 __Import it in another script:__
 ```python
