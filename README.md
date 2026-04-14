@@ -5,25 +5,33 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sqlcompose)
 [![PyPI Downloads](https://static.pepy.tech/badge/sqlcompose/week)](https://pepy.tech/projects/sqlcompose)
 
-# sqlcompose: Composition of linked SQL files
-sqlcompose lets you to compose sql files from multiple files by introducing `INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
+# sqlcompose: Composition of SQL files
+sqlcompose lets you to compose sql files from multiple files by introducing `$INCLUDE` keywords. The SQL output is composed as CTE's or Common Table Expressions.
 
 Using composition, you reduce both complexity and duplication of code thus adhering to the DRY principle.
 
 ### SQL Dialect
-sqlcompose outputs SQL as standard ANSI SQL. Note though, that no validation is done either on the input or the output.
+sqlcompose outputs SQL as standard ANSI SQL. Note though, that no validation is done on either the input or the output.
 
 ## Examples
-__Execute the script directly:__
-```console
+
+### 1. Execute the script with the filename as an argument and output to the console:
+```bash
 sqlcompose query.sql
 ```
+
+### 2. Pipe data into application and output to a file
+```bash
+cat query.sql | sqlcompose > output.sql
+```
+
+### 3. Execute the script with SQL string as argument
 ```bash
 sqlcompose 'select * from $INCLUDE(included-query1.sql)'
 ```
 > NOTE: Different consoles have different limitations, so you may have to switch from single to double quotes to allow for using the dollar sign.
 
-__Import it in another script:__
+### 4. Import it in another python application or package
 ```python
 from sqlcompose import load, loads
 # method 1 : loading from a file
