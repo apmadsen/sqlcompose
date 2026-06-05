@@ -26,23 +26,6 @@
                 "--cov-config=.coveragerc",
                 "./tests",
             ]
-        },
-        {
-            "name": "Python Debugger: Console w/o args",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "sqlcompose",
-            "console": "integratedTerminal",
-            "justMyCode": false
-        },
-        {
-            "name": "Python Debugger: Console",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "sqlcompose",
-            "args": [ "tests/main-query.sql" ],
-            "console": "integratedTerminal",
-            "justMyCode": false
         }
     ]
 }

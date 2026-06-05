@@ -1,7 +1,7 @@
 [project]
 name = "sqlcompose"
 dynamic = ["version"]
-description = "Composition of linked SQL files"
+description = "Composition of SQL files"
 keywords = ["sql", "composition", "windows", "linux"]
 readme = "README.md"
 authors = [
@@ -22,13 +22,16 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Libraries",
     "Typing :: Typed"
 ]
-dependencies = []
-requires-python = ">=3.10"
+dependencies = [
+
+]
+requires-python = ">= 3.10, < 3.15"
 
 [project.urls]
 repository = "https://github.com/apmadsen/sqlcompose"
@@ -40,6 +43,7 @@ repository = "https://github.com/apmadsen/sqlcompose"
 test = [
     "pytest>=8.3.0",
     "pytest-cov>=6.1.0",
+    "pytest-mock>=3.15"
 ]
 
 [tool.setuptools-git-versioning]
